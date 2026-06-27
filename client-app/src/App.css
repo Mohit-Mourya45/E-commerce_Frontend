@@ -1,0 +1,131 @@
+/* Full Page */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #79a0db;
+}
+
+.app-container {
+  min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+/* Common Button */
+.nav-btn {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Admin */
+.admin-btn {
+  background: #276acf;
+  color: white;
+}
+
+.admin-btn:hover {
+  background: #e60000;
+  transform: translateY(-2px);
+}
+
+/* Customer */
+.customer-btn {
+  background: #276acf;
+  color: white;
+}
+
+.customer-btn:hover {
+  background: #1e7e34;
+  transform: translateY(-2px);
+}
+
+/* Vendor */
+.vendor-btn {
+  background: #276acf;
+  color: white;
+}
+
+.vendor-btn:hover {
+  background: #e68900;
+  transform: translateY(-2px);
+}
+
+/* Hero Section */
+.hero-section {
+  text-align: center;
+  padding: 12px 2px;
+  background: #79a0db;
+  margin: 10px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.hero-section h1 {
+  color: #1e3c72;
+  margin-bottom: 10px;
+}
+
+.hero-section p {
+  color: #555;
+  font-size: 18px;
+}
+
+/* Product Area */
+.product-section {
+  padding: 20px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .nav-buttons {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .nav-btn {
+    width: 100%;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  .hero-section h1 {
+    font-size: 24px;
+  }
+}

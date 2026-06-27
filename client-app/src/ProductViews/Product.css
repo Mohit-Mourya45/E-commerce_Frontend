@@ -1,0 +1,256 @@
+/* ===========================
+   PAGE
+=========================== */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f4f7fc;
+}
+
+
+
+/* ===========================
+   HEADER
+=========================== */
+
+h2 {
+    color: #1e293b;
+    margin-bottom: 20px;
+}
+
+/* ===========================
+   ADD PRODUCT BUTTON
+=========================== */
+
+button {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+button:first-of-type {
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+    );
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(37,99,235,.3);
+}
+
+/* ===========================
+   MODAL
+=========================== */
+
+.model-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    backdrop-filter: blur(5px);
+}
+
+.model-box {
+    width: 500px;
+    max-width: 95%;
+    background: rgba(255,255,255,.95);
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    animation: popup .3s ease;
+}
+
+@keyframes popup {
+    from {
+        transform: scale(.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.model-box h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+
+/* ===========================
+   FORM CONTROLS
+=========================== */
+
+.model-box input,
+.model-box select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+    outline: none;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: .3s;
+}
+
+.model-box input:focus,
+.model-box select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 8px rgba(37,99,235,.2);
+}
+
+/* ===========================
+   IMAGE PREVIEW
+=========================== */
+
+.model-box img {
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    object-fit: cover;
+}
+
+/* ===========================
+   MODAL BUTTONS
+=========================== */
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.modal-actions button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.modal-actions button:first-child {
+    background: #ef4444;
+    color: white;
+}
+
+.modal-actions button:last-child {
+    background: #22c55e;
+    color: white;
+}
+
+/* ===========================
+   TABLE
+=========================== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid black;
+    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+}
+
+thead {
+    background: linear-gradient(
+        135deg,
+        #1e40af,
+        #2563eb
+    );
+    color: white;
+}
+
+thead th {
+    padding: 14px;
+    font-size: 14px;
+}
+
+tbody td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ===========================
+   PRODUCT IMAGE
+=========================== */
+
+tbody img {
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* ===========================
+   EDIT BUTTON
+=========================== */
+
+tbody button:first-child {
+    background: #f59e0b;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-right: 6px;
+    border-radius: 6px;
+}
+
+/* ===========================
+   DELETE BUTTON
+=========================== */
+
+tbody button:last-child {
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:768px) {
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .model-box {
+        width: 95%;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .modal-actions button {
+        width: 100%;
+    }
+}

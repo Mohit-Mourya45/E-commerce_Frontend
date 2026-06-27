@@ -1,0 +1,71 @@
+.customer-mgt {
+  padding: 20px;
+}
+
+.customer-mgt h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+.customer-mgt table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.customer-mgt th {
+  background: #2563eb;
+  color: white;
+  padding: 12px;
+}
+
+.customer-mgt td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.customer-mgt tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.customer-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.active-status {
+  color: green;
+  font-weight: bold;
+}
+
+.inactive-status {
+  color: red;
+  font-weight: bold;
+}
+
+.activate-btn {
+  background: green;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.deactivate-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.activate-btn:hover,
+.deactivate-btn:hover {
+  opacity: 0.8;
+}

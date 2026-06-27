@@ -1,0 +1,154 @@
+/* Full Screen Layout */
+.customer-home {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #f5f7fa, #e4eaf1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* Customer Image */
+.customer-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #ffffff;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Welcome Text */
+.welcome-title {
+  margin: 0;
+  font-size: 2rem;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.customer-name {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #555;
+  font-weight: 500;
+}
+
+/* Button Container */
+.button-group {
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Common Button Style */
+.button-group button,
+.back-btn {
+  border: none;
+  padding: 14px 20px;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Shopping */
+.shopping-btn {
+  background: #28a745;
+}
+
+.shopping-btn:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+/* View Profile */
+.profile-btn {
+  background: #007bff;
+}
+
+.profile-btn:hover {
+  background: #0069d9;
+  transform: translateY(-2px);
+}
+
+/* Edit Profile */
+.edit-btn {
+  background: #fd7e14;
+}
+
+.edit-btn:hover {
+  background: #e96b00;
+  transform: translateY(-2px);
+}
+
+/* Change Password */
+.password-btn {
+  background: #6f42c1;
+}
+
+.password-btn:hover {
+  background: #5a32a3;
+  transform: translateY(-2px);
+}
+
+/* Logout */
+.logout-btn {
+  background: #dc3545;
+}
+
+.logout-btn:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+}
+
+/* Full Screen Child Views */
+.product-view-container {
+  width: 100%;
+  min-height: 100vh;
+  background: #f8f9fa;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Back Button */
+.back-btn {
+  background: #343a40;
+  margin-bottom: 20px;
+}
+
+.back-btn:hover {
+  background: #212529;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .customer-home {
+    padding: 20px;
+  }
+
+  .customer-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .welcome-title {
+    font-size: 1.6rem;
+  }
+
+  .customer-name {
+    font-size: 1.2rem;
+  }
+
+  .button-group {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,50 @@
+* {
+  box-sizing: border-box;
+}
+
+.main-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2563eb, #1e293b);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-card {
+  width: 400px;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.main-card h1 {
+  margin-bottom: 30px;
+  color: #1e293b;
+}
+
+.main-btn {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.main-btn:hover {
+  background: #1d4ed8;
+}
+
+.back-btn {
+  background: #dc2626;
+}
+
+.back-btn:hover {
+  background: #b91c1c;
+}

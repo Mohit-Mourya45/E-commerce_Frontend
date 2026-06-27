@@ -1,0 +1,148 @@
+/* ===== PAGE CONTAINER ===== */
+.venderlogin-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f172a, #020617);
+  padding: 20px;
+}
+
+/* ===== LOGIN CARD ===== */
+.venderlogin-form {
+  width: 100%;
+  max-width: 380px;
+  background: #0b1220;
+  border-radius: 14px;
+  padding: 30px 28px;
+  box-shadow: 0 0 35px rgba(59, 130, 246, 0.15);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* ===== TITLE ===== */
+.venderlogin-title {
+  text-align: center;
+  margin-bottom: 22px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+/* ===== INPUTS ===== */
+.venderlogin-form input[type="text"],
+.venderlogin-form input[type="password"] {
+  width: 100%;
+  padding: 11px 14px;
+  margin-bottom: 14px;
+  border-radius: 8px;
+  border: 1px solid #1e293b;
+  background-color: #020617;
+  color: #f8fafc;
+  font-size: 14px;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+.venderlogin-form input::placeholder {
+  color: #64748b;
+}
+
+.venderlogin-form input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+/* ===== REMEMBER ME ===== */
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0 18px;
+  font-size: 13px;
+  color: #cbd5f5;
+}
+
+.remember-me input[type="checkbox"] {
+  accent-color: #3b82f6;
+  cursor: pointer;
+}
+
+/* ===== BUTTONS ===== */
+.venderlogin-button {
+  width: 100%;
+  padding: 11px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: white;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.venderlogin-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
+}
+
+.venderlogin-button:active {
+  transform: scale(0.98);
+}
+
+/* ===== FORGOT BUTTON ===== */
+.venderlogin-button:nth-of-type(2) {
+  background: #1e293b;
+}
+
+.venderlogin-button:nth-of-type(2):hover {
+  background: #334155;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 480px) {
+  .venderlogin-form {
+    padding: 24px 20px;
+  }
+
+  .venderlogin-title {
+    font-size: 18px;
+  }
+}
+
+/* ===== PASSWORD FIELD WITH EYE ICON ===== */
+.password-field {
+  position: relative;
+  width: 100%;
+}
+
+.password-field input {
+  padding-right: 42px; /* space for eye icon */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.eye-icon:hover {
+  color: #3b82f6;
+}

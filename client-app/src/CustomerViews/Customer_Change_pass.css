@@ -1,0 +1,116 @@
+.changepass-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f6f9;
+  padding: 20px;
+}
+
+.changepass-card {
+  width: 100%;
+  max-width: 450px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.changepass-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.userid-text {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #555;
+  font-size: 15px;
+}
+
+.message-box {
+  background: #e9f7ef;
+  color: #28a745;
+  border: 1px solid #c3e6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.changepass-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.changepass-card label {
+  margin-bottom: 5px;
+  margin-top: 12px;
+  font-weight: 600;
+  color: #444;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  width: 100%;
+  padding: 12px 45px 12px 12px;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.password-field input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.password-field span {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  font-size: 18px;
+}
+
+.changepass-card button {
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  background: #007bff;
+  color: #ffffff;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.changepass-card button:hover {
+  background: #0056b3;
+}
+
+.changepass-card button:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+/* Mobile Responsive */
+@media (max-width: 576px) {
+  .changepass-card {
+    padding: 20px;
+  }
+
+  .changepass-card h2 {
+    font-size: 22px;
+  }
+
+  .password-field input {
+    font-size: 14px;
+  }
+}
