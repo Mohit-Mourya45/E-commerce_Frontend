@@ -24,7 +24,11 @@ function Product ({data}) {
     useEffect(() => {
         getNewPid();
         axios.get(`${REACT_APP_BASE_API_URL}/productcatg/showproductcatg`)
-        .then(res => setPCatgList(res.data))
+       .then(res => {
+        console.log("Category response:", res.data);
+        console.log("Is Array:", Array.isArray(res.data));
+        setPCatgList(Array.isArray(res.data) ? res.data : []);
+    })
         .catch(err => alert(err.message));
     }, []);
 

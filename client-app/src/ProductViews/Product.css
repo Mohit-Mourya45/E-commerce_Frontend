@@ -171,6 +171,7 @@ table {
     overflow: hidden;
     border: 1px solid black;
     box-shadow: 0 6px 20px rgba(0,0,0,.08);
+    
 }
 
 thead {
@@ -190,7 +191,7 @@ thead th {
 tbody td {
     padding: 12px;
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid rgb(0, 0, 0);
 }
 
 tbody tr:hover {

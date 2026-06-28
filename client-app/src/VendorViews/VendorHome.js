@@ -5,7 +5,8 @@ function VenderHome({ vender, onLogout }) {
     if (!vender) {
         return <h4>Loading vendor data...</h4>;
     }
-
+console.log(vender);
+console.log(vender?.VPicName);
      return (
         <div className="vendor-home-container">
             <div className="vendor-home-card">
@@ -15,7 +16,8 @@ function VenderHome({ vender, onLogout }) {
 
                 <img
                     className="vendor-profile-pic"
-                    src={`${process.env.REACT_APP_BASE_API_URL}/uploads/${vender?.VPicName}`}
+                    
+                    src={vender?.VPicName}
                     alt="vendor pic"
                 />
 

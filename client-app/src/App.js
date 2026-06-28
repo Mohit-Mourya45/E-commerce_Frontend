@@ -3,6 +3,7 @@ import AdminLogin from "./AdminViews/AdminLogin";
 import CustomerMain from "./CustomerViews/CustomerMain";
 import VendorMain from "./VendorViews/VendorMain";
 import ProductListforMainPage from "./ProductViews/ProductListforMainPage";
+import Product from "./ProductViews/Product";
 import "./App.css";
 import mainpic from "./mainpic.jpg";
 

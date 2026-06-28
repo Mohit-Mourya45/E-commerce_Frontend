@@ -1,4 +1,4 @@
-// src/productviews/ProductListforMainPage.js 3/1/26
+// src/productviews/ProductListforMainPage.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Bill from "../CustomerViews/Bill";
@@ -6,31 +6,47 @@ import CustomerLoginPopup from "../CustomerViews/CustomerLoginPopup";
 import "../index.css";
 import "./ProductListforMainPage.css";
 
-
 function ProductListforMainPage() {
   const [itemcount, setItemCount] = useState(0);
   const [selitems, setSelItems] = useState([]);
   const [quantities, setQuantities] = useState({});
   const [cid, setCId] = useState(null);
   const [customerSession, setCustomerSession] = useState(null);
+
   const [pcatglist, setPCatgList] = useState([]);
   const [plist, setPList] = useState([]);
+
   const [showLogin, setShowLogin] = useState(false);
   const [showBill, setShowBill] = useState(false);
 
-const REACT_APP_BASE_API_URL=process.env.REACT_APP_BASE_API_URL;
-  
+  const REACT_APP_BASE_API_URL = process.env.REACT_APP_BASE_API_URL;
+
+  // ================= LOAD DATA =================
   useEffect(() => {
-    axios.get(REACT_APP_BASE_API_URL+"/product/showproduct")
-      .then((res) => setPList(res.data))
-      .catch((err) => alert(err));
-    axios.get(REACT_APP_BASE_API_URL+"/productcatg/showproductcatg")
-      .then((res) => setPCatgList(res.data))
-      .catch((err) => alert(err));
+    axios
+      .get(`${REACT_APP_BASE_API_URL}/product/showproduct`)
+      .then((res) => {
+        setPList(Array.isArray(res.data) ? res.data : []);
+      })
+      .catch((err) => {
+        console.log(err);
+        setPList([]);
+      });
+
+    axios
+      .get(`${REACT_APP_BASE_API_URL}/productcatg/showproductcatg`)
+      .then((res) => {
+        setPCatgList(Array.isArray(res.data) ? res.data : []);
+      })
+      .catch((err) => {
+        console.log(err);
+        setPCatgList([]);
+      });
 
     const session =
       sessionStorage.getItem("userSession") ||
       localStorage.getItem("userSession");
+
     if (session) {
       const obj = JSON.parse(session);
       setCustomerSession(obj);
@@ -38,12 +54,14 @@ const REACT_APP_BASE_API_URL=process.env.REACT_APP_BASE_API_URL;
     }
   }, []);
 
+  // ================= LOGIN =================
   const handleLoginSuccess = (sessionData) => {
     setCustomerSession(sessionData);
     setCId(sessionData.cid);
     setShowLogin(false);
   };
 
+  // ================= BUY =================
   const handleBuyButton = (pid) => {
     if (!cid) {
       setShowLogin(true);
@@ -53,13 +71,13 @@ const REACT_APP_BASE_API_URL=process.env.REACT_APP_BASE_API_URL;
     axios
       .get(`${REACT_APP_BASE_API_URL}/product/showproductstatus/${pid}`)
       .then((res) => {
-        if (res.data.status === "Active") {
+        if (res.data?.status === "Active") {
           const selected = plist.find((item) => item.pid === pid);
           if (!selected) return;
 
           setSelItems((prev) => {
-            const already = prev.find((i) => i.pid === pid);
-            if (already) return prev;
+            const exists = prev.find((i) => i.pid === pid);
+            if (exists) return prev;
             return [...prev, selected];
           });
 
@@ -67,14 +85,22 @@ const REACT_APP_BASE_API_URL=process.env.REACT_APP_BASE_API_URL;
             ...prev,
             [pid]: (prev[pid] || 0) + 1,
           }));
+
           setItemCount((prev) => prev + 1);
-         } else {
-           alert("Product out of Stock");
-         }
+
+          // ✅ POPUP FIX
+          alert("🛒 Product added to cart");
+        } else {
+          alert("Product out of stock");
+        }
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        console.log(err);
+        alert("Error checking product status");
+      });
   };
 
+  // ================= QUANTITY =================
   const increaseQty = (pid) => {
     setQuantities((prev) => ({
       ...prev,
@@ -86,44 +112,58 @@ const REACT_APP_BASE_API_URL=process.env.REACT_APP_BASE_API_URL;
   const decreaseQty = (pid) => {
     setQuantities((prev) => {
       const newQty = (prev[pid] || 1) - 1;
+
       if (newQty <= 0) {
         setSelItems((old) => old.filter((item) => item.pid !== pid));
-        return Object.fromEntries(
-          Object.entries(prev).filter(([k]) => k !== String(pid))
-        );
+        const updated = { ...prev };
+        delete updated[pid];
+        return updated;
       }
+
       return { ...prev, [pid]: newQty };
     });
+
     setItemCount((prev) => (prev > 0 ? prev - 1 : 0));
   };
 
+  // ================= SEARCH =================
+  const handleSearch = (evt) => {
+    const catgId = evt.target.value;
+
+    if (catgId === "select") return;
+
+    const url =
+      catgId > 0
+        ? `${REACT_APP_BASE_API_URL}/product/showproductbycatgid/${catgId}`
+        : `${REACT_APP_BASE_API_URL}/product/showproduct`;
+
+    axios
+      .get(url)
+      .then((res) => {
+        setPList(Array.isArray(res.data) ? res.data : []);
+      })
+      .catch((err) => {
+        console.log(err);
+        setPList([]);
+      });
+  };
+
+  // ================= CHECKOUT =================
   const handleCheckOutButton = () => {
     if (!cid) {
       setShowLogin(true);
       return;
     }
-    if (selitems.length <= 0) {
-      alert("Please buy some products before checkout.");
+
+    if (selitems.length === 0) {
+      alert("Please add products first");
       return;
     }
+
     setShowBill(true);
   };
 
-  const handleSearch = (evt) => {
-    const catgId = evt.target.value;
-    if (catgId === "select") return;
-
-    const url =
-      catgId > 0
-        ?   `${REACT_APP_BASE_API_URL}/product/showproductbycatgid/${catgId}`
-        : `${REACT_APP_BASE_API_URL}/product/showproduct`;
-
-    axios
-      .get(url)
-      .then((res) => setPList(res.data))
-      .catch((err) => alert(err));
-  };
-
+  // ================= BILL PAGE =================
   if (showBill) {
     return (
       <Bill
@@ -139,24 +179,7 @@ const REACT_APP_BASE_API_URL=process.env.REACT_APP_BASE_API_URL;
     );
   }
 
-const handleLogout = () => {
-  // Clear session from both storages
-  localStorage.removeItem("userSession");
-  sessionStorage.removeItem("userSession");
-
-  // Clear React states
-  setCustomerSession(null);
-  setCId(null);
-  setSelItems([]);
-  setQuantities({});
-  setItemCount(0);
-
-  // Optionally, hide bill/login popup if open
-  setShowBill(false);
-  setShowLogin(false);
-};
-
-
+  // ================= UI =================
   return (
     <>
       {showLogin && (
@@ -167,52 +190,30 @@ const handleLogout = () => {
       )}
 
       {/* HEADER */}
-<header className="eshop-header">
-  {/* Left: User Info */}
-  <div className="eshop-user">
-    <img
-      className="user-avatar"
-      src={
-        customerSession
-          ? customerSession.cpicname
-          : "https://cdn-icons-png.flaticon.com/512/847/847969.png"
-      }
-      alt={customerSession ? customerSession.cfname : "Guest"}
-    />
-    <span className="username">
-      {customerSession ? customerSession.cfname : "Guest"}
-    </span>
+      <header className="eshop-header">
+        <div className="eshop-title">🛍️ E-Shop</div>
 
-    {/* Show Logout only if logged in */}
-    {customerSession && (
-      <button className="logout-btn" onClick={handleLogout}>
-        Logout
-      </button>
-    )}
-  </div>
+        <div className="eshop-search">
+          <select className="select" onChange={handleSearch}>
+            <option value="select">Search by Category</option>
+            <option value="0">All Products</option>
 
-  {/* Center: Title */}
-  <div className="eshop-title">🛍️ E-Shop</div>
+            {pcatglist.map((c) => (
+              <option key={c.pcatgid} value={c.pcatgid}>
+                {c.pcatgname}
+              </option>
+            ))}
+          </select>
 
-  {/* Right: Search + Cart + Checkout */}
-  <div className="eshop-search">
-    <select className="select" onChange={handleSearch}>
-      <option value="select">🔍 Search by Category</option>
-      <option value="0">All Products</option>
-      {pcatglist.map((pcatgitem) => (
-        <option key={pcatgitem.pcatgid} value={pcatgitem.pcatgid}>
-          {pcatgitem.pcatgname}
-        </option>
-      ))}
-    </select>
+          <span className="cart" data-count={itemcount}>
+            🛒
+          </span>
 
-    <span className="cart" data-count={itemcount}>🛒</span>
-
-    <button className="checkout-btn" onClick={handleCheckOutButton}>
-      Checkout
-    </button>
-  </div>
-</header>
+          <button className="checkout-btn" onClick={handleCheckOutButton}>
+            Checkout
+          </button>
+        </div>
+      </header>
 
       {/* PRODUCTS */}
       <div className="product-list-wide">
@@ -220,19 +221,24 @@ const handleLogout = () => {
           const cname =
             pcatglist.find((c) => c.pcatgid === item.pcatgid)?.pcatgname ||
             "N/A";
+
           const qty = quantities[item.pid] || 0;
-          const imageUrl = item.ppicname?.startsWith("http")
-            ? item.ppicname
-            : `https://res.cloudinary.com/<your-cloud-name>/image/upload/${item.ppicname}`;
 
           return (
             <div className="product-card dark-card" key={item.pid}>
-              <img className="product-image" src={imageUrl} alt={item.pname} />
+              <img
+                className="product-image"
+                src={item.ppicname}
+                alt={item.pname}
+              />
+
               <h4>{item.pname}</h4>
+
               <p>
                 ₹{item.oprice}{" "}
                 <span className="strike">₹{item.pprice}</span>
               </p>
+
               <p>{cname}</p>
 
               {qty > 0 ? (
