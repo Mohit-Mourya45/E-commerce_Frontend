@@ -168,7 +168,7 @@ setBillId(nextId);
 
             const saveBillId = await saveBill();
 
-            const loaded = await loadScript("http://checkout.razorpay.com/v1/checkout.js");
+            const loaded = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
             if(!loaded) return alert ("Failed to load Raxorpay");
 
             const amountInPaisa = totalAmount * 100;
