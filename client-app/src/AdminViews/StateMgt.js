@@ -22,51 +22,62 @@ function StateMgt()
             stname:stname,
             status:1
         };
-        axios.post("http://localhost:9090/state/save",obj).then(res => {
-            alert("Data Saved");
-            setStId("");
-            setStName("");
-        }).catch((err) => {
-            alert(err)
-        })
+       axios.post(
+    `${process.env.REACT_APP_BASE_API_URL}/state/save`,
+    obj
+).then(res => {
+    alert("Data Saved");
+    setStId("");
+    setStName("");
+}).catch((err) => {
+    alert(err);
+});
     }
-     useEffect(() => {
-        axios.get("http://localhost:9090/state/getall").then((res) => {
-            //alert(res.data.length)
-            var nextStId=res.data.length+1;
-            setStId(nextStId);
-        }).catch((err) => {
-            alert(err);
-        })
+    useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BASE_API_URL}/state/getall`)
+    .then((res) => {
+        const nextStId = res.data.length + 1;
+        setStId(nextStId);
+    })
+    .catch((err) => {
+        alert(err);
+    });
             
     })
-    const handleShowButton = () => {
-        axios.get("http://localhost:9090/state/getall").then((res) => {
-            console.log(res.data); 
-            setStlist(res.data);
-        }).catch((err)=> {
-            alert(err);
-        } )
-    }
+  const handleShowButton = () => {
+    axios.get(`${process.env.REACT_APP_BASE_API_URL}/state/getall`)
+    .then((res) => {
+        console.log(res.data);
+        setStlist(res.data);
+    })
+    .catch((err) => {
+        alert(err);
+    });
+}
 
-    const handleSearchButton = ()=> {
-         axios.get("http://localhost:9090/state/search/" +stid).then((res) => {
-            setStName(res.data.stname);
-            setStatus(res.data.status);
-        }).catch((err)=> {
-            alert(err);
-        } )
-    }
-    const handleNewButton=()=> {
-         axios.get("http://localhost:9090/state/getall").then((res) => {
-            //alert(res.data.length)
-            var nextStId=res.data.length+1;
-           setStId(nextStId);
-           setStName("");
-       }).catch((err) => {
-            alert(err);
-        })
-    }
+   const handleSearchButton = () => {
+    axios.get(
+        `${process.env.REACT_APP_BASE_API_URL}/state/search/${stid}`
+    )
+    .then((res) => {
+        setStName(res.data.stname);
+        setStatus(res.data.status);
+    })
+    .catch((err) => {
+        alert(err);
+    });
+}
+   const handleNewButton = () => {
+    axios.get(`${process.env.REACT_APP_BASE_API_URL}/state/getall`)
+    .then((res) => {
+        const nextStId = res.data.length + 1;
+        setStId(nextStId);
+        setStName("");
+    })
+    .catch((err) => {
+        alert(err);
+    });
+}
     const handleUpdateButton =() => {
         var obj ={
             stid:Number(stid),
@@ -74,26 +85,32 @@ function StateMgt()
             status:Number(status)
 
         }
-        axios.put("http://localhost:9090/state/update",obj).then(res=> {
-            alert("Data Updated");
-            setStId("");
-            setStName("");
-            setStatus("");
-        }).catch((err) => {
-            alert(err)
-        })
+       axios.put(
+    `${process.env.REACT_APP_BASE_API_URL}/state/update`,
+    obj
+).then(res => {
+    alert("Data Updated");
+    setStId("");
+    setStName("");
+    setStatus("");
+}).catch((err) => {
+    alert(err);
+});
     }
-    const handleDeleteButton=() => {
-        axios.delete("http://localhost:9090/state/delete/"+stid).then(res => {
-            alert("Data Deleted");
-            setStId("");
-            setStName("");
-            setStatus("");
-        }).catch((err) => {
-            alert(err)
-        })
-    }
-
+    const handleDeleteButton = () => {
+    axios.delete(
+        `${process.env.REACT_APP_BASE_API_URL}/state/delete/${stid}`
+    )
+    .then(res => {
+        alert("Data Deleted");
+        setStId("");
+        setStName("");
+        setStatus("");
+    })
+    .catch((err) => {
+        alert(err);
+    });
+}
     return (
         <div>
             <center>

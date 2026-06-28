@@ -40,14 +40,16 @@ function Bill({ data, onBack, onPaymentSuccess, updateCart, onRemoveItem }) {
         });
         setQuantities(qtyObj);
 
-        axios.get(`http://localhost:9090/customer/getcustomerdetails/${data.cid}`)
-        .then((res) => {
-            setCustomer({
-                name: res.data.CUserName,
-                address: res.data.CAddress,
-                contact: res.data.CContact,
-            });
-        })
+        axios.get(
+    `${process.env.REACT_APP_BASE_API_URL}/customer/getcustomerdetails/${data.cid}`
+)
+.then((res) => {
+    setCustomer({
+        name: res.data.CUserName,
+        address: res.data.CAddress,
+        contact: res.data.CContact,
+    });
+})
         .catch((err) => alert(err));
     }, [data]);
 
@@ -116,32 +118,40 @@ function Bill({ data, onBack, onPaymentSuccess, updateCart, onRemoveItem }) {
         const saveBill = useCallback(async () => {
             if(!items.length) return;
 
-            const res = await axios.get("http://localhost:9090/bill/getbillid");
-            const nextId = parseInt(res.data[0].billid) + 1;
-            console.log("Bill ID Response:", res.data);
-            setBillId(nextId);
+           const res = await axios.get(
+    `${process.env.REACT_APP_BASE_API_URL}/bill/getbillid`
+);
+
+const nextId = parseInt(res.data[0].billid) + 1;
+console.log("Bill ID Response:", res.data);
+setBillId(nextId);
 
             const today = getCurrentDate();
             for(const item of items) {
                 const qty = quantities[item.pid];
                 const subtotal = item.oprice * qty;
 
-                await axios.post("http://localhost:9090/bill/billsave", {
-                    billid: nextId,
-                    billdate: today,
-                    cid: data.cid,
-                    pid: item.pid,
-                    qty,
-                });
-
-                await axios.post("http://localhost:9090/sales/add", {
-                    venderId: item.vid,
-                    productId: item.pid,
-                    quantity: qty,
-                    totalPrice: subtotal,
-                    billid: nextId,
-                    date: today,
-                });
+               await axios.post(
+    `${process.env.REACT_APP_BASE_API_URL}/bill/billsave`,
+    {
+        billid: nextId,
+        billdate: today,
+        cid: data.cid,
+        pid: item.pid,
+        qty,
+    }
+);
+                await axios.post(
+    `${process.env.REACT_APP_BASE_API_URL}/sales/add`,
+    {
+        venderId: item.vid,
+        productId: item.pid,
+        quantity: qty,
+        totalPrice: subtotal,
+        billid: nextId,
+        date: today,
+    }
+);
             }
 
             return nextId;
@@ -163,7 +173,9 @@ function Bill({ data, onBack, onPaymentSuccess, updateCart, onRemoveItem }) {
 
             const amountInPaisa = totalAmount * 100;
 
-            const order = await axios.post(`http://localhost:9090/payment/orders/${amountInPaisa}`);
+           const order = await axios.post(
+    `${process.env.REACT_APP_BASE_API_URL}/payment/orders/${amountInPaisa}`
+);
             const { id: order_id,amount, currency } = order.data;
 
             const options = {
@@ -175,15 +187,18 @@ function Bill({ data, onBack, onPaymentSuccess, updateCart, onRemoveItem }) {
                 image: {logo},
                 order_id,
                 handler: async function (response) {
-                    await axios.post("http://localhost:9090/paymentdetails/paymentdetailsave",{
-                        orderCreationId: order_id,
-                        razorpayPaymentId: response.razorpay_payment_id,
-                        razorpayOrderId: response.razorpay_order_id,
-                        razorpaySignature: response.razorpay_signature,
-                        cid:  data.cid,
-                        amount: amount/100,
-                        billid:saveBillId,
-                    });
+                   await axios.post(
+    `${process.env.REACT_APP_BASE_API_URL}/paymentdetails/paymentdetailsave`,
+    {
+        orderCreationId: order_id,
+        razorpayPaymentId: response.razorpay_payment_id,
+        razorpayOrderId: response.razorpay_order_id,
+        razorpaySignature: response.razorpay_signature,
+        cid: data.cid,
+        amount: amount / 100,
+        billid: saveBillId,
+    }
+);
                     setIsPaymentDone(true);
                     alert("Payment Successfull!");
                     onPaymentSuccess?.();

@@ -4,7 +4,7 @@ import CustomerMain from "./CustomerViews/CustomerMain";
 import VendorMain from "./VendorViews/VendorMain";
 import ProductListforMainPage from "./ProductViews/ProductListforMainPage";
 import "./App.css";
-import mainpic from "./mainpic.jpg"
+import mainpic from "./mainpic.jpg";
 
 function App() {
   const [page, setPage] = useState("");

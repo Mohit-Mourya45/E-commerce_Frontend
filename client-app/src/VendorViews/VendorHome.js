@@ -6,19 +6,27 @@ function VenderHome({ vender, onLogout }) {
         return <h4>Loading vendor data...</h4>;
     }
 
-    return (
-        <div>
-            <h4>Welcome to Vendor Home</h4>
+     return (
+        <div className="vendor-home-container">
+            <div className="vendor-home-card">
+                <h2 className="vendor-home-title">
+                    Welcome to Vendor Home
+                </h2>
 
-            <h5>{vender?.VendorName}</h5>
+                <img
+                    className="vendor-profile-pic"
+                    src={`${process.env.REACT_APP_BASE_API_URL}/uploads/${vender?.VPicName}`}
+                    alt="vendor pic"
+                />
 
-            <img
-                src={"http://localhost:9090/uploads/" + vender?.VPicName}
-                height={100}
-                width={100}
-                style={{ borderRadius: "50%" }}
-                alt="vendor pic"
-            />
+                <h3 className="vendor-name">
+                    {vender?.VendorName}
+                </h3>
+
+                <button className="logout-btn" onClick={onLogout}>
+                    Logout
+                </button>
+            </div>
         </div>
     );
 }

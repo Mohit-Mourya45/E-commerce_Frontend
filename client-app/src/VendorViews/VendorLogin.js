@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import VenderHome from "./VendorHome";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import "./VendorLogin.css";
 
 function VenderLogin() {
     const [vuid, setVuid] = useState("");

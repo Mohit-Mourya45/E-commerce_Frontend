@@ -13,28 +13,36 @@ function ProductCatgMgt() {
     }, []);
 
     const fetchCategoryList = () => {
-        axios.get("http://localhost:9090/productcatg/showproductcatg")
+        axios.get(
+  `${process.env.REACT_APP_BASE_API_URL}/productcatg/showproductcatg`
+)
             .then((res) => {
                 setPCatgList(res.data);
                 if (!isEditMode) {
-                    setPCatgId(res.data.length + 1);
-                }
+    const maxId = res.data.length > 0
+        ? Math.max(...res.data.map(item => item.pcatgid))
+        : 0;
+
+    setPCatgId(maxId + 1);
+}
             })
             .catch((err) => alert(err));
     };
 
    const handleSaveButton = () => {
+     console.log("API URL:", process.env.REACT_APP_BASE_API_URL);
     if (!pcatgname.trim()) {
         alert("Category name cannot be empty.");
         return;
     }
 
-    axios.post("http://localhost:9090/productcatg/addproductcatg", {
+    axios.post(`${process.env.REACT_APP_BASE_API_URL}/productcatg/addproductcatg`, {
         pcatgid: pcatgid,
         pcatgname: pcatgname,
         status: "Active"
     })
     .then((res) => {
+        console.log("Saved Response:", res.data);
         alert("Category saved successfully");
         setPCatgName("");
         setIsEditMode(false);
@@ -49,7 +57,7 @@ function ProductCatgMgt() {
     }
 
     axios.put(
-        "http://localhost:9090/productcatg/updateproductcatg/" + pcatgid,
+        `${process.env.REACT_APP_BASE_API_URL}/productcatg/updateproductcatg/${pcatgid}`,
         {
             pcatgname: pcatgname,
             status: "Active"

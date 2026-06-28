@@ -22,7 +22,7 @@ function ProductMgt()
             pcatgname:pcatgname,
             status:1
         };
-        axios.post("http://localhost:9090/productcatg/addproductcatg",obj).then(res => {
+        axios.post(`${process.env.REACT_APP_BASE_API_URL}/productcatg/addproductcatg`,obj).then(res => {
             alert("Data Saved");
             setStlist([res.data]);
         }).catch((err) => {
@@ -40,7 +40,7 @@ function ProductMgt()
             
     //})
     const handleShowButton = () => {
-        axios.get("http://localhost:9090/productcatg/showproductcatg").then((res) => {
+        axios.get(`${process.env.REACT_APP_BASE_API_URL}/productcatg/showproductcatg`).then((res) => {
             console.log(res.data);
             setStlist(res.data);
             setPcatgId("");
@@ -59,14 +59,17 @@ function ProductMgt()
             status:Number(status)
 
         }
-        axios.put("http://localhost:9090/productcatg/updateproductcatg/"+pcatgid,obj).then(res=> {
-            alert("Data Updated");
-            setPcatgId("");
-            setPcatgName("");
-            setStatus("");
-        }).catch((err) => {
-            alert(err)
-        })
+        axios.put(
+    `${process.env.REACT_APP_BASE_API_URL}/productcatg/updateproductcatg/${pcatgid}`,
+    obj
+).then(res => {
+    alert("Data Updated");
+    setPcatgId("");
+    setPcatgName("");
+    setStatus("");
+}).catch((err) => {
+    alert(err);
+});
     }
 
     return (

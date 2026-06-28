@@ -1,128 +1,72 @@
-/* ===============================
-   THEME VARIABLES
-================================ */
-:root {
-  --bg-page: #f3f4f6;        /* gray-100 */
-  --bg-surface: #ffffff;
-  --text-primary: #111827;  /* gray-900 */
-  --text-muted: #6b7280;    /* gray-500 */
-
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
+/* Full page */
+.vendor-home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    font-family: Arial, sans-serif;
 }
 
-/* ===============================
-   BASE LAYOUT
-================================ */
-.vendor-home {
-  min-height: 100vh;
-  background: var(--bg-page);
-  display: flex;
-  flex-direction: column;
+/* Card */
+.vendor-home-card {
+    background: #fff;
+    padding: 40px;
+    width: 400px;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-/* ===============================
-   CONTENT AREA
-================================ */
-.vendor-content {
-  padding: 16px;
-  width: 100%;
-  max-width: 1400px;
-  margin: auto;
+/* Heading */
+.vendor-home-title {
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 30px;
 }
 
-/* ===============================
-   CARD
-================================ */
-.vendor-card {
-  background: var(--bg-surface);
-  border-radius: 12px;
-  padding: 16px;
-  margin-top: 16px;
-  box-shadow: var(--shadow-md);
-  color: var(--text-primary);
+/* Profile image */
+.vendor-profile-pic {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #4facfe;
+    margin-bottom: 20px;
 }
 
-/* ===============================
-   LOADER
-================================ */
-.loader-wrapper {
-  position: fixed;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.85);
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* Vendor name */
+.vendor-name {
+    color: #555;
+    font-size: 24px;
+    margin-bottom: 30px;
 }
 
-.spinner {
-  width: 48px;
-  height: 48px;
-  border: 4px solid #e5e7eb;
-  border-top-color: #2563eb;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+/* Logout button */
+.logout-btn {
+    padding: 12px 25px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+.logout-btn:hover {
+    background-color: #e60000;
+    transform: translateY(-2px);
 }
 
-/* ===============================
-   FOOTER
-================================ */
-.footer-marquee {
-  background: #1f2937;
-  color: #e5e7eb;
-  padding: 8px 0;
-  margin-top: auto;
-  font-size: 14px;
-}
+/* Responsive */
+@media (max-width: 500px) {
+    .vendor-home-card {
+        width: 90%;
+        padding: 25px;
+    }
 
-/* ===============================
-   RESPONSIVE
-================================ */
-@media (max-width: 768px) {
-  .vendor-content {
-    padding: 12px;
-  }
-
-  .vendor-card {
-    padding: 14px;
-    border-radius: 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .vendor-content {
-    padding: 10px;
-  }
-
-  .vendor-card {
-    padding: 12px;
-    margin-top: 12px;
-  }
-}
-
-/* ===============================
-   ANIMATION
-================================ */
-.vendor-card,
-.vendor-content {
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    .vendor-home-title {
+        font-size: 24px;
+    }
 }
